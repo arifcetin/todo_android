@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button, exit;
+    private Button button, exit, btn5;
     private ListView listView;
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = findViewById(R.id.button3);
+        btn5 = findViewById(R.id.button5);
         exit = findViewById(R.id.button4);
         listView = findViewById(R.id.listView);
         arrayList = new ArrayList<>();
@@ -79,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
+            }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DailyActivity.class));
             }
         });
 
@@ -137,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("İptal", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // İptal edildi
                         dialog.dismiss();
                     }
                 });

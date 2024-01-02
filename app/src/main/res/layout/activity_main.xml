@@ -16,18 +16,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="218dp"
-        android:layout_height="449dp"
+        android:layout_width="203dp"
+        android:layout_height="324dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.37">
+        app:layout_constraintVertical_bias="0.157">
 
     </ListView>
 
@@ -42,5 +41,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Günlük İlerleme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listView"
+        app:layout_constraintVertical_bias="0.341" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

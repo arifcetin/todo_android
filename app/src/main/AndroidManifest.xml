@@ -13,6 +13,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="33">
         <activity
+            android:name=".DailyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".RegisterActivity"
             android:exported="false">
             <meta-data
