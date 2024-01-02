@@ -20,37 +20,37 @@
         <TextView
             android:id="@+id/hedefAdi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="hedef adı" />
 
         <TextView
             android:id="@+id/hedefAciklama"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="hedefAciklama" />
 
         <TextView
             android:id="@+id/kategori"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="kategori" />
 
         <TextView
             android:id="@+id/baslangicTarihi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="baslangicTarihi" />
 
         <TextView
             android:id="@+id/bitisTarihi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="bitisTarihi" />
 
         <ListView
             android:id="@+id/altHedefler"
             android:layout_width="184dp"
-            android:layout_height="match_parent" />
+            android:layout_height="108dp" />
 
     </LinearLayout>
 
@@ -62,8 +62,8 @@
         android:text="Alt Hedef Ekle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
