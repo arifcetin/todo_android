@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,24 +59,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
 
-        db.collection("tasks")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                if (document.get("userId").equals(user.getUid())) {
-                                    arrayList.add((String) document.get("Hedef Adı"));
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+        getTasks();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showTaskDialog(position);
+                showTaskDialog(position,view);
             }
         });
         exit.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView)
-                .setTitle("Yeni Kullanıcı Ekle")
+                .setTitle("Yeni Hedef Ekle")
                 .setPositiveButton("Ekle", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -129,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
                         task.put("Hedef Adı", taskName);
                         task.put("Hedef Açıklama", taskDescription);
                         task.put("Kategori", category);
-                        task.put("Başlangıç Tarihi", new Date());
+                        task.put("Başlangıç Tarihi", new java.util.Date());
                         task.put("Bitiş Tarihi", date);
                         task.put("userId", user.getUid());
+                        task.put("bittim gözün aydın", false);
 
                         db.collection("tasks")
                                 .add(task)
@@ -159,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void showTaskDialog(final int position) {
+    private void showTaskDialog(final int position, View view) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
         View mView = layoutInflaterAndroid.inflate(R.layout.show_item_dialog, null);
 
@@ -173,12 +158,12 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Güncelle", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
-                        showUpdateTaskDialog(position);
+                        updateTask(position,view);
                     }
                 })
                 .setNeutralButton("Detaylar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
-                        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class).putExtra("hedefAdi",arrayList.get(position));
                         startActivity(intent);
                     }
                 })
@@ -192,32 +177,44 @@ public class MainActivity extends AppCompatActivity {
         alertDialogAndroid.show();
     }
 
-    private void showUpdateTaskDialog(final int position) {
-        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
-        View mView = layoutInflaterAndroid.inflate(R.layout.update_task_dialog, null);
-
-        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
-        alertDialogBuilderUserInput.setView(mView);
-
-        final EditText userInputDialogEditText = mView.findViewById(R.id.editTextTextPersonName2);
-        userInputDialogEditText.setText(arrayList.get(position));
-
-        alertDialogBuilderUserInput
-                .setCancelable(false)
-                .setPositiveButton("Güncelle", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogBox, int id) {
-                        String updateItem = userInputDialogEditText.getText().toString();
-                        arrayList.set(position,updateItem);
-                        adapter.notifyDataSetChanged();
-                    }
-                })
-                .setNegativeButton("İptal", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogBox, int id) {
-                        dialogBox.cancel();
+    public void getTasks(){
+        db.collection("tasks")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                if (document.get("userId").equals(user.getUid())) {
+                                    arrayList.add((String) document.get("Hedef Adı"));
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
                     }
                 });
-
-        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-        alertDialogAndroid.show();
+    }
+    public void updateTask(int position, View view){
+        db.collection("tasks")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                if (document.get("userId").equals(user.getUid()) && document.get("Hedef Adı").equals(arrayList.get(position))) {
+                                    db.collection("tasks").document(document.getId()).update("bittim gözün aydın", true);
+                                    view.setBackgroundColor(Color.GREEN);
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 }

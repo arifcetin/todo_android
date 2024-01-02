@@ -6,16 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".DetailsActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GÜZELLİK"
-        android:textSize="50dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="415dp"
+        android:layout_height="356dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/hedefAdi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hedef adı" />
+
+        <TextView
+            android:id="@+id/hedefAciklama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hedefAciklama" />
+
+        <TextView
+            android:id="@+id/kategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="kategori" />
+
+        <TextView
+            android:id="@+id/baslangicTarihi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="baslangicTarihi" />
+
+        <TextView
+            android:id="@+id/bitisTarihi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="bitisTarihi" />
+
+        <ListView
+            android:id="@+id/altHedefler"
+            android:layout_width="184dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/altHedefEkle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="Alt Hedef Ekle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.091" />
 </androidx.constraintlayout.widget.ConstraintLayout>
