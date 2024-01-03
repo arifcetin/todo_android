@@ -79,14 +79,15 @@ public class DailyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
 
-        onRestart();
-        getDaily();
 
         btn = findViewById(R.id.button6);
         listView = findViewById(R.id.daily);
         arrayList = new ArrayList<>();
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
+
+        onRestart();
+        getDaily();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
